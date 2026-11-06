@@ -39,42 +39,43 @@ ${fixedbar(site)}
 </html>`;
 }
 
+const ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+
 export function header(site) {
   return `<header class="header"><div class="in">
 <a class="logo" href="/"><img src="/assets/img/logo-white.webp" alt="${esc(site.brand)}" width="600" height="150"><small>${esc(site.siteName)}</small></a>
-<nav class="nav"><a href="/#seminar">セミナー情報</a><a href="/#success">成功事例紹介</a><a href="/#strong">弊社の強み</a><a href="/blog/">ブログ</a><a href="/#question">よくある質問</a></nav>
-<div class="hcta"><a class="c1" href="/#document-form" data-cta="header_document">資料請求は<br>こちら</a><a class="c2" href="/#form" data-cta="header_contact">無料相談は<br>こちら</a><a class="c3" href="/#seminar-form" data-cta="header_seminar">セミナー参加は<br>こちら</a></div>
-</div></header>
-<a class="teltab" href="${telHref(site.tel)}" data-cta="teltab">TEL</a>`;
+<nav class="nav"><a href="/#strong">むさしの強み</a><a href="/#service">サービス</a><a href="/#price">料金</a><a href="/#seminar">セミナー</a><a href="/blog/">ブログ</a><a href="/#question">よくある質問</a></nav>
+<div class="hcta"><a class="tel" href="${telHref(site.tel)}">${esc(site.tel)}</a><a class="btn btn-white" href="/shindan/" data-cta="header_shindan">1分診断</a><a class="btn btn-red" href="/#form" data-cta="header_contact">無料相談</a></div>
+</div></header>`;
 }
 
 export function footer(site) {
   return `<footer><div class="in">
-<div class="co">運営：<br>${esc(site.company)}<span>所在地：<br>${esc(site.address)}</span><span>TEL：<br><a href="${telHref(site.tel)}">${esc(site.tel)}</a></span></div>
-<img class="emb" src="/assets/img/emblem.webp" alt="${esc(site.brand)}" width="228" height="285" loading="lazy">
-<div class="links"><a href="/#strong">サービス</a><a href="/#seminar">セミナー</a><a href="/#document">資料ダウンロード</a><a href="/shindan/">1分経営診断</a><a href="/blog/">ブログ</a><a href="/#question">よくある質問</a><a href="/#form">お問い合わせ</a>${site.instagram ? `<a href="${site.instagram}" target="_blank" rel="noopener">Instagram</a>` : ''}<a href="/privacy/">プライバシーポリシー</a></div>
-</div><div class="copy">Copyright © ${esc(site.company)} All Rights Reserved.</div></footer>`;
+<div class="co"><b>${esc(site.company)}</b>${esc(site.siteName)}<br>${esc(site.address)}<br>TEL <a href="${telHref(site.tel)}">${esc(site.tel)}</a></div>
+<img class="emb" src="/assets/img/emblem.webp" alt="" width="228" height="285" loading="lazy">
+<div class="links"><a href="/#strong">むさしの強み</a><a href="/#service">サービス</a><a href="/#price">料金</a><a href="/#seminar">セミナー</a><a href="/#document">資料ダウンロード</a><a href="/shindan/">1分経営診断</a><a href="/blog/">ブログ</a><a href="/#question">よくある質問</a><a href="/#form">お問い合わせ</a>${site.instagram ? `<a href="${site.instagram}" target="_blank" rel="noopener">Instagram</a>` : ''}<a href="/privacy/">プライバシーポリシー</a></div>
+<div class="copy">© ${new Date().getFullYear()} ${esc(site.company)}</div>
+</div></footer>`;
 }
 
 export function fixedbar(site) {
-  return `<div class="fixedbar"><a class="f2" href="/shindan/" data-cta="bar_shindan">1分で無料診断</a><a class="f1" href="/#form" data-cta="bar_contact">無料相談</a><a class="f3" href="${telHref(site.tel)}" data-cta="bar_tel">TEL</a></div>`;
+  return `<div class="fixedbar"><a class="f1" href="/#form" data-cta="bar_contact">無料相談</a><a class="f2" href="/shindan/" data-cta="bar_shindan">1分診断</a><a class="f3" href="${telHref(site.tel)}" data-cta="bar_tel">電話</a></div>`;
 }
 
 export function contactForm(site, { type = 'contact', id = 'form' } = {}) {
-  return `<section id="${id}" class="contact2"><div class="wrap">
-<p class="lead1">活動実績の長い企業だからこそ安心！<br>整骨院の<em>長期経営ノウハウ</em>をお伝え出来ます。</p>
-<h2 class="ttl2">無料相談はコチラから</h2>
+  return `<section id="${id}" class="contact"><div class="wrap">
+<div class="sec-h"><h2>無料相談</h2><p>現在の集客・売上・体制をお聞きし、課題と打ち手を整理してお返しします。開業前の方も、他社のコンサルを受けている方もご相談いただけます。担当者から1営業日以内にご連絡します。</p></div>
 <form class="form" data-api data-type="${type}" novalidate>
-<div class="f"><label>お問い合わせ項目<span class="req">*</span></label><div class="chk"><label><input type="checkbox" name="items" value="整骨院の開業"> 整骨院の開業</label><label><input type="checkbox" name="items" value="フランチャイズについて"> フランチャイズについて</label><label><input type="checkbox" name="items" value="その他ご相談"> その他ご相談</label></div></div>
-<div class="f"><label for="${id}-name">お名前<span class="req">*</span></label><input id="${id}-name" type="text" name="name" required placeholder="例）福岡 太郎" autocomplete="name"></div>
-<div class="f"><label for="${id}-kana">お名前（フリガナ）<span class="req">*</span></label><input id="${id}-kana" type="text" name="kana" placeholder="例）フクオカ タロウ"></div>
-<div class="f"><label for="${id}-clinic">整骨院名<span class="req">*</span></label><input id="${id}-clinic" type="text" name="clinic" required placeholder="例）○○整骨院（出店予定の場合は「未定」とご記入ください）" autocomplete="organization"></div>
-<div class="f"><label for="${id}-email">メールアドレス<span class="req">*</span></label><input id="${id}-email" type="email" name="email" required placeholder="例）000@gmail.com" autocomplete="email"></div>
-<div class="f"><label for="${id}-tel">電話番号<span class="req">*</span></label><input id="${id}-tel" type="tel" name="tel" required placeholder="例）000-000-0000" autocomplete="tel"></div>
-<div class="f"><label for="${id}-msg">お問い合わせ内容<span class="req">*</span></label><textarea id="${id}-msg" name="message"></textarea></div>
+<div class="f"><label>ご相談の内容<span class="req">必須</span></label><div class="chk"><label><input type="checkbox" name="items" value="整骨院の開業"> 整骨院の開業</label><label><input type="checkbox" name="items" value="フランチャイズについて"> フランチャイズ加盟</label><label><input type="checkbox" name="items" value="集客・リピート改善"> 集客・リピート改善</label><label><input type="checkbox" name="items" value="採用・スタッフ教育"> 採用・スタッフ教育</label><label><input type="checkbox" name="items" value="その他ご相談"> その他</label></div></div>
+<div class="f"><label for="${id}-name">お名前<span class="req">必須</span></label><input id="${id}-name" type="text" name="name" required placeholder="福岡 太郎" autocomplete="name"></div>
+<div class="f"><label for="${id}-kana">フリガナ</label><input id="${id}-kana" type="text" name="kana" placeholder="フクオカ タロウ"></div>
+<div class="f"><label for="${id}-clinic">整骨院名<span class="req">必須</span></label><input id="${id}-clinic" type="text" name="clinic" required placeholder="○○整骨院（開業前の方は「未定」）" autocomplete="organization"></div>
+<div class="f"><label for="${id}-email">メールアドレス<span class="req">必須</span></label><input id="${id}-email" type="email" name="email" required placeholder="info@example.com" autocomplete="email"></div>
+<div class="f"><label for="${id}-tel">電話番号<span class="req">必須</span></label><input id="${id}-tel" type="tel" name="tel" required placeholder="090-0000-0000" autocomplete="tel"></div>
+<div class="f"><label for="${id}-msg">ご相談内容</label><textarea id="${id}-msg" name="message" placeholder="今いちばん困っていること、聞きたいことをご自由にどうぞ"></textarea></div>
 <div class="hp"><label>会社URL<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
-<button class="btn btn-red btn-lg" type="submit">メッセージを送信する　▶</button>
-<p class="priv">送信いただいた情報は、ご相談への対応およびサービス案内にのみ使用します。</p>
+<button class="btn btn-red btn-lg" type="submit">無料相談を申し込む ${ARROW}</button>
+<p class="priv">送信いただいた情報は、ご相談への対応とサービスのご案内にのみ使用します。</p>
 <div class="msg" role="status" aria-live="polite"></div>
 </form>
 </div></section>`;
@@ -88,129 +89,119 @@ export function lpPage(site, posts) {
   const s = site;
   const svcImg = { shukyaku: 'svc-shukyaku', operation: 'svc-operation', unei: 'svc-unei', jiko: 'svc-jiko', bukken: 'svc-bukken', naigaisou: 'svc-naigaisou', novelty: 'svc-novelty', zaimu: 'svc-zaimu', saiyou: 'svc-saiyou' };
   const semImg = ['seminar-sagi', 'seminar-kaigyo', 'seminar-shukyaku'];
-  const [feat, ...others] = s.seminars;
+  const featImg = ['store-queue', 'svc-operation', 'svc-zaimu'];
+  const featPts = [
+    ['SNS・MEO・紹介を組み合わせた集客の型', '広告費に頼らない導線設計', '直営院で毎月検証している施策だけを提供'],
+    ['問診・説明・次回提案のオペレーション', '新人でも再現できるチェック項目', '院長が現場を離れても回る仕組み'],
+    ['複数の金融機関への本部からの打診', '補助金・融資の資料づくり', '開業後の数字の見える化まで伴走'],
+  ];
   const body = `
-<div class="hero">
-  <div class="pc"><img src="/assets/img/hero-full.webp" alt="FC加盟店募集中！集客〜経営まで本部にお任せ！ 2024年10月開業 1人先生治療院 初月売上250万円 / 2026年3月開業 複数名治療院 初月売上570万円 整骨院の開業ならむさし鍼灸整骨院グループ！" width="2000" height="1062" fetchpriority="high"></div>
-  <div class="sp-in">
-    <div class="tags"><span class="tag">FC加盟店募集中！</span><span class="tag">集客〜経営まで本部にお任せ！</span></div>
-    <div class="nums">${s.proof.map((p) => `<div class="num"><small>${esc(p.when)}</small><b>${esc(p.label)}<br><span>${esc(p.num)}</span>${esc(p.unit)}</b><i>${esc(p.type)}</i></div>`).join('')}</div>
-    <img class="brand" src="/assets/img/hero-brand.webp" alt="整骨院の開業なら むさし鍼灸整骨院グループ！" width="1200" height="324">
-    <div class="ctas"><a class="btn btn-yellow" href="/shindan/" data-cta="hero_shindan">1分で無料「経営力診断」</a><a class="btn btn-red" href="#form" data-cta="hero_contact">無料相談はこちら</a></div>
+<div class="hero"><div class="in">
+  <div class="copy">
+    <div class="tags"><span class="tag">FC加盟店募集中</span><span class="tag">赤字院の立て直しは0円</span></div>
+    <h1>整骨院の開業と経営を、<br><span class="red">直営130院</span>の現場から支える。</h1>
+    <p class="lead">新規集客、リピート、スタッフ教育、資金調達。机上の空論ではなく、自社の整骨院で毎日実証しているやり方を、あなたの院に合わせて実装します。</p>
+    <div class="acts"><a class="btn btn-red btn-lg" href="#form" data-cta="hero_contact">無料で相談する ${ARROW}</a><a class="btn btn-white btn-lg" href="/shindan/" data-cta="hero_shindan">1分で経営力を診断</a><span class="tel">お電話でも<b>${esc(s.tel)}</b></span></div>
+    <div class="brand"><img src="/assets/img/hero-brand.webp" alt="むさし鍼灸整骨院グループ" width="1200" height="324" loading="lazy"><span>運営：${esc(s.company)}</span></div>
   </div>
-  <div class="bar"><div class="in"><p>まずは1分。あなたの院の経営力を診断します<b>開業前の方も、赤字で悩む院長も、無料で相談できます</b></p><div class="acts"><a class="btn btn-yellow" href="/shindan/" data-cta="hero_shindan_pc">1分で無料「経営力診断」</a><a class="btn btn-red" href="#form" data-cta="hero_contact_pc">無料相談はこちら</a><a class="tel" href="${telHref(s.tel)}" data-cta="hero_tel">お電話でのご相談<b>${esc(s.tel)}</b></a></div></div></div>
-</div>
-
-<div class="yband" id="seminar">売上爆増!?整骨院向けセミナー</div>
-<div class="semsec"><div class="wrap">
-  <div class="feat"><img src="/assets/img/${semImg[0]}.webp" alt="${esc(feat.title)}" width="800" height="1000" loading="lazy"><div class="t"><span class="chip">参加費無料</span><span class="chip">ZOOM</span><b>${esc(feat.sub)}</b><i>${esc(feat.when)}</i><p>${esc(feat.body)}</p></div></div>
-  <div class="two">${others.map((m, i) => `<div class="card2"><img src="/assets/img/${semImg[i + 1]}.webp" alt="${esc(m.title)}" width="900" height="656" loading="lazy"><div class="t"><b>${esc(m.title)}</b><i>${esc(m.when)}‼</i><p>${esc(m.body)}</p></div></div>`).join('')}</div>
-  <a class="imgbtn" href="#seminar-form" data-cta="seminar_imgbtn"><img src="/assets/img/btn-seminar.webp" alt="セミナーで集客・求人・経営に関する悩みを無料相談！" width="1200" height="300" loading="lazy"></a>
+  <div class="visual">
+    <div class="photo"><img src="/assets/img/hero-collage.webp" alt="むさし鍼灸整骨院の店舗と、開業セミナーの様子" width="2000" height="1062" fetchpriority="high"></div>
+    <div class="proofs">${s.proof.map((p) => `<div class="proof"><small>${esc(p.when)}｜${esc(p.type)}</small><b>${esc(p.num)}<span>${esc(p.unit)}</span></b><i>${esc(p.label)}</i></div>`).join('')}</div>
+  </div>
 </div></div>
 
-<div class="point"><img class="woman" src="/assets/img/pointing-woman.webp" alt="" width="900" height="601" loading="lazy"><div class="box">ここがポイント‼</div><p>全国130院の直営運営で培った「成功の型」を完全再現！</p></div>
+<div class="numbers"><div class="in">${s.stats.map((x) => `<div><b>${esc(x.num)}<span>${esc(x.unit)}</span></b><small>${esc(x.label)}</small></div>`).join('')}</div></div>
 
-<section class="nayami2" id="success"><div class="wrap">
-  <h2 class="ttl">整骨院経営をやっていて<br><em>こんなお悩みありませんか？</em></h2>
-  <img class="bubbles" src="/assets/img/worries-bubbles.webp" alt="昔に比べて新規数が減りカルテ枚数が減少している／自費メニューを作ったけどなかなか上手く提案できない／スタッフ教育が苦手でどうしていいかわからない" width="1600" height="310" loading="lazy">
+<section class="problems" id="success"><div class="wrap"><div class="grid">
+  <div class="sec-h"><h2>整骨院経営の悩みは、<br>だいたい同じところで止まる。</h2><p>新規が減った、2回目につながらない、スタッフが育たない。原因は院長の努力不足ではなく、仕組みがないことです。直営130院で同じ壁を越えてきました。</p>
+  <p class="answer">その悩み、<span class="hl">むさしが一緒に解決します。</span></p></div>
   <ul>${s.problems.map((p) => `<li>${esc(p)}</li>`).join('')}</ul>
+</div></div></section>
+
+<section class="features" id="strong"><div class="wrap">
+  <div class="sec-h"><h2>むさしで開業・改善する3つの理由</h2><p>コンサル会社でも制作会社でもなく、整骨院を運営している会社だからできることがあります。</p></div>
+  ${s.reasons.slice(0, 3).map((r, i) => `<div class="row"><div class="ph"><img src="/assets/img/${featImg[i]}.webp" alt="" width="600" height="450" loading="lazy"></div><div class="tx"><span class="n">0${i + 1}</span><h3>${esc(r.title)}</h3><p>${esc(r.body)}</p><ul>${featPts[i].map((t) => `<li>${esc(t)}</li>`).join('')}</ul></div></div>`).join('')}
+  <div class="compare"><img src="/assets/img/compare-table.webp" alt="むさし鍼灸整骨院サポート事業部とA社・WEB制作会社の比較。実店舗運営・技術・集客力・スタッフ育成はむさしが◎" width="1200" height="790" loading="lazy"></div>
 </div></section>
 
-<div class="solve" id="strong"><div class="wrap">
-  <p class="h">そのお悩み、むさしが<em>解決</em>します！</p>
-  <img class="circles" src="/assets/img/merit-circles.webp" alt="マーケティングチームが集客を徹底的にサポート！新規増加率100%／担当サポーターが勉強会を開催！平均月1回／実店舗で成果を出している運営方法をご提案 42店舗以上" width="1400" height="1049" loading="lazy">
-  <p class="h2">むさしで開業する<em style="color:var(--yellow);font-style:normal">メリット</em></p>
-  <div class="merits">
-    <div class="merit"><div class="im"><img src="/assets/img/store-queue.webp" alt="" width="600" height="450" loading="lazy"></div><b>${esc(s.reasons[0].title)}</b><p>${esc(s.reasons[0].body)}</p></div>
-    <div class="merit"><div class="im"><img src="/assets/img/svc-operation.webp" alt="" width="600" height="399" loading="lazy"></div><b>${esc(s.reasons[1].title)}</b><p>${esc(s.reasons[1].body)}</p></div>
-    <div class="merit"><div class="im"><img src="/assets/img/svc-zaimu.webp" alt="" width="600" height="405" loading="lazy"></div><b>${esc(s.reasons[2].title)}</b><p>${esc(s.reasons[2].body)}</p></div>
-  </div>
-  <p class="omakase">整骨院の開業は、整骨院を運営している<b>我々“<em>むさし</em>”におまかせください！</b></p>
-  <div class="consult">
-    <div class="present"><img src="/assets/img/doc-jakuten-mock.webp" alt="" width="429" height="469" loading="lazy">弱点分析シートを<br>先着10社様に<br>プレゼント‼</div>
-    <h3>無料相談はコチラ！</h3>
-    <p>専任のコンサルタントがひとつひとつ丁寧にヒアリングをさせていただき、適切なプランをご提案させていただきます。</p>
-    <a class="btn" href="#form" data-cta="solve_contact">まずはお気軽にご相談を！ ▶</a>
-  </div>
-</div></div>
+<section id="shindan"><div class="wrap"><div class="panel">
+  <div><h2>1分でわかる、<br>あなたの院の経営力。</h2><p>8つの質問に答えるだけで、今の段階と次にやるべき一手を判定します。連絡先の入力なしで結果まで見られます。</p>
+  <ol><li><span>1</span><div><b>質問に答える</b><small>新規・リピート・口コミ・自費率・体制・数字管理。約1分</small></div></li><li><span>2</span><div><b>レベルを判定</b><small>4段階で点数化し、同じ段階の院が次に取り組むことを提示</small></div></li><li><span>3</span><div><b>レポートを受け取る</b><small>必要な方だけメールで詳細レポートと面談の日程調整</small></div></li></ol>
+  <div class="acts"><a class="btn btn-red btn-lg" href="/shindan/" data-cta="panel_shindan">無料で診断する ${ARROW}</a></div></div>
+  <div class="mock" aria-hidden="true"><small>診断結果のイメージ</small><b>レベル2：集客強化期　<span class="sc"><span class="num" style="font-family:var(--font-num);font-weight:600;color:var(--red)">11</span><span style="font-size:.7em;color:var(--mute)"> / 21点</span></span></b><div class="bars">${['新規集客', 'リピート', '来院経路', '口コミ', '自費率', '体制', '数字管理'].map((l, i) => `<div class="bar"><span>${l}</span><i><b style="width:${[66, 33, 66, 33, 66, 33, 66][i]}%"></b></i><span>${[2, 1, 2, 1, 2, 1, 2][i]}/3</span></div>`).join('')}</div></div>
+</div></div></section>
 
-<div class="yband" id="shindan">1分でわかる！整骨院 経営力診断</div>
-<section class="shindan-sec"><div class="wrap">
-  <h2 class="ttl">8つの質問に答えるだけ。<br>あなたの院の<em>「今のレベル」と「次の一手」</em>がわかります</h2>
-  <div class="steps"><div class="step"><span>1</span>質問に答える<small>新規・リピート・口コミ・自費率・体制・数字管理の8問。約1分</small></div><div class="step"><span>2</span>レベル判定<small>4段階で今の経営力を点数化。連絡先なしで結果まで見られます</small></div><div class="step"><span>3</span>次の一手がわかる<small>優先順位つきの改善策と、詳細レポートをメールでお届け</small></div></div>
-  <p style="margin-top:2em"><a class="btn btn-red btn-lg" href="/shindan/" data-cta="shindan_sec">無料で診断する ▶</a></p>
+<section class="services" id="service"><div class="wrap">
+  <div class="sec-h"><h2>開業から運営まで、<br>窓口ひとつで。</h2><p>必要なものを必要な順番で。単体のご依頼も、組み合わせも可能です。</p></div>
+  <div class="grid">${s.services.map((v) => `<div class="svc"><img src="/assets/img/${svcImg[v.slug] || 'svc-unei'}.webp" alt="" width="432" height="322" loading="lazy"><div class="t"><b>${esc(v.name)}</b><p>${esc(v.desc)}</p></div></div>`).join('')}</div>
 </div></section>
 
-<section class="daikohyo"><div class="wrap">
-  <p class="kazari">大好評‼</p>
-  <h2 class="ttl" style="font-size:clamp(1.05rem,3.4vw,1.4rem)">売上UPが実感できるセミナー開催中！</h2>
-  <div class="ba"><div class="b"><img src="/assets/img/before.webp" alt="改善前の整骨院" width="304" height="295" loading="lazy"></div><img class="arrow" src="/assets/img/arrow.webp" alt="" width="286" height="254" loading="lazy"><div class="a"><img src="/assets/img/after.webp" alt="改善後の整骨院" width="473" height="425" loading="lazy"></div></div>
-  <p style="margin-top:2.2em"><a class="btn btn-yellow btn-lg" href="#seminar-form" data-cta="daikohyo_seminar">セミナーに参加する ▶</a></p>
+<section class="flow"><div class="wrap">
+  <div class="sec-h"><h2>ご相談から成果までの流れ</h2></div>
+  <ol>${s.flow.map((f) => `<li><b>${esc(f.title)}</b><p>${esc(f.body)}</p></li>`).join('')}</ol>
 </div></section>
 
-<section class="svc" id="service"><div class="wrap">
-  <h2 class="ttl"><em>豊富なサービス体制</em>で<br>御社の課題を<em>根本</em>から解決します！</h2>
-  <div class="grid">${s.services.map((v) => `<div class="tile"><img src="/assets/img/${svcImg[v.slug] || 'svc-unei'}.webp" alt="" width="432" height="322" loading="lazy"><b>${esc(v.name).replace('・', '<br>')}<small>${esc(v.desc)}</small></b></div>`).join('')}</div>
-  <img class="compare" src="/assets/img/compare-table.webp" alt="むさし鍼灸整骨院サポート事業部とA社・WEB制作会社の比較：実店舗運営◎、技術◎、集客力◎、スタッフ育成◎、採用○、費用○" width="1200" height="790" loading="lazy">
+<section class="pricing" id="price"><div class="wrap">
+  <div class="sec-h"><h2>料金</h2><p>赤字経営の院は0円で立て直しをサポートします。まずは無料相談で現状を伺い、合うプランをご提案します。</p></div>
+  <div class="grid">${s.pricing.map((p, i) => `<div class="price${i === 0 ? ' hot' : ''}"><div class="nm">${esc(p.name)}</div><div class="tg">${esc(p.target)}</div><div class="pr">${esc(p.price)}</div><p class="bd">${esc(p.body)}</p><a class="btn ${i === 0 ? 'btn-red' : 'btn-white'}" href="#form" data-cta="price_${i}">相談する</a></div>`).join('')}</div>
 </div></section>
 
-<section class="docs2" id="document"><div class="wrap">
-  <p class="lim">ここまで読んだ方限定！</p>
-  <p class="lim2">お役立ち資料を無料でダウンロード</p>
+<section class="seminars" id="seminar"><div class="wrap">
+  <div class="sec-h"><h2>セミナー・相談会</h2><p>参加費無料。オンラインで参加できます。</p></div>
+  <div class="grid">${s.seminars.map((m, i) => `<div class="sem"><div class="img"><img src="/assets/img/${semImg[i]}.webp" alt="${esc(m.title)}" width="900" height="656" loading="lazy"></div><div class="t"><span class="when">${esc(m.when)}</span><b>${esc(m.title)}</b><p>${esc(m.body)}</p><div class="foot"><span>${esc(m.fee)}</span><a class="btn btn-dark btn-sm" href="#seminar-form" data-cta="seminar_${i}">申し込む</a></div></div></div>`).join('')}</div>
+</div></section>
+
+<section class="docs" id="document"><div class="wrap">
+  <div class="sec-h"><h2>無料の資料</h2><p>自院の数字を業界平均と見比べるためのシートと、商圏の分析レポートです。</p></div>
   <div class="grid">
-    <div class="paper"><img src="/assets/img/doc-jakuten-cover.webp" alt="弱点分析シート" width="445" height="600" loading="lazy"><div><b>${esc(s.documents[0].title)}</b><p>${esc(s.documents[0].body)}</p><a class="btn btn-outline-y" href="#document-form" data-cta="doc_jakuten">資料請求する</a></div></div>
-    <div class="paper"><img src="/assets/img/doc-chiiki.webp" alt="地域分析無料診断" width="330" height="459" loading="lazy"><div><b>${esc(s.documents[1].title)}</b><p>${esc(s.documents[1].body)}</p><a class="btn btn-outline-y" href="#document-form" data-cta="doc_chiiki">資料請求する</a></div></div>
+    <div class="doc"><img src="/assets/img/doc-jakuten-cover.webp" alt="弱点分析シート" width="445" height="600" loading="lazy"><div><b>${esc(s.documents[0].title)}</b><p>${esc(s.documents[0].body)}</p><a class="btn btn-white" href="#document-form" data-cta="doc_0">資料を請求する</a></div></div>
+    <div class="doc"><img src="/assets/img/doc-chiiki.webp" alt="地域分析無料診断" width="330" height="459" loading="lazy"><div><b>${esc(s.documents[1].title)}</b><p>${esc(s.documents[1].body)}</p><a class="btn btn-white" href="#document-form" data-cta="doc_1">資料を請求する</a></div></div>
   </div>
 </div></section>
 
-<div class="yband" id="blog">${esc(s.blogName)}｜現場で使える整骨院経営ノウハウ</div>
-<section class="blogsec"><div class="wrap">
-  <p class="sub" style="margin-top:0">直営130院の現場から、明日使える集客・リピート・採用のノウハウを発信しています。</p>
+<section class="blogsec" id="blog"><div class="wrap">
+  <div class="sec-h"><h2>${esc(s.blogName)}</h2><p>直営130院の現場から、明日使える集客・リピート・採用のノウハウを発信しています。</p></div>
   <div class="posts">${posts.slice(0, 6).map(postCard).join('')}</div>
-  <p style="text-align:center;margin-top:2em"><a class="btn btn-white" href="/blog/">記事をもっと見る</a></p>
+  <p style="margin-top:28px"><a class="link" href="/blog/">記事をもっと見る</a></p>
 </div></section>
 
-<section class="faq2" id="question"><div class="wrap">
-  <h2 class="ttl u">よくある質問</h2>
+<section class="faq" id="question"><div class="wrap">
+  <div class="sec-h center" style="margin:0 auto"><h2>よくある質問</h2></div>
   <div class="qa">${s.faq.map((f, i) => `<details${i === 0 ? ' open' : ''}><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join('')}</div>
 </div></section>
 
-<div class="ceo2"><div class="in"><div class="t"><h2>代表ご挨拶</h2><p>${esc(s.ceoMessage)}</p></div><img src="/assets/img/ceo.webp" alt="代表取締役" width="690" height="576" loading="lazy"></div></div>
+<section class="ceo"><div class="wrap"><div class="grid"><div><h2>代表ご挨拶</h2><p>${esc(s.ceoMessage)}</p></div><div class="ph"><img src="/assets/img/ceo.webp" alt="代表取締役" width="690" height="576" loading="lazy"></div></div></div></section>
 
 ${contactForm(site)}
 
-<div class="yband" id="seminar-form">セミナー申し込みはコチラから</div>
-<section class="formsec"><div class="wrap">
-<form class="form" data-api data-type="seminar" novalidate style="margin-top:0">
-<div class="f"><label for="sem-company">会社名</label><input id="sem-company" type="text" name="company" autocomplete="organization"></div>
-<div class="f"><label for="sem-clinic">接骨院・整骨院名<span class="req">*</span></label><input id="sem-clinic" type="text" name="clinic" required></div>
-<div class="f"><label for="sem-name">お名前<span class="req">*</span></label><input id="sem-name" type="text" name="name" required autocomplete="name"></div>
-<div class="f"><label for="sem-tel">ご連絡先（携帯電話）<span class="req">*</span></label><input id="sem-tel" type="tel" name="tel" required autocomplete="tel"></div>
-<div class="f"><label for="sem-email">メールアドレス<span class="req">*</span></label><input id="sem-email" type="email" name="email" required autocomplete="email"></div>
-<div class="f"><label>どのセミナーに参加しますか？<span class="req">*</span></label><div class="chk">${s.seminars.map((m) => `<label><input type="checkbox" name="items" value="${esc(m.title)}"> ${esc(m.title)}</label>`).join('')}</div></div>
-<div class="f"><label for="sem-date">セミナー希望日時を3つほど候補をお願いします<span class="req">*</span></label><input id="sem-date" type="text" name="dates" placeholder="例）11/20 20時、11/22 21時、11/25 20時"></div>
-<div class="f"><label for="sem-msg">相談したい内容など詳しくいただければ、よりあなたに合った内容をご提案します！</label><textarea id="sem-msg" name="message"></textarea></div>
+<section class="formsec"><div class="wrap"><div class="two-forms">
+<div id="seminar-form"><div class="sec-h"><h2>セミナー申し込み</h2><p>日程が決まっているものはそのまま、随時開催のものは候補日を3つほどご記入ください。</p></div>
+<form class="form" data-api data-type="seminar" novalidate>
+<div class="f"><label>参加したいセミナー<span class="req">必須</span></label><div class="chk">${s.seminars.map((m) => `<label><input type="checkbox" name="items" value="${esc(m.title)}"> ${esc(m.title)}</label>`).join('')}</div></div>
+<div class="f"><label for="sem-name">お名前<span class="req">必須</span></label><input id="sem-name" type="text" name="name" required autocomplete="name"></div>
+<div class="f"><label for="sem-clinic">接骨院・整骨院名<span class="req">必須</span></label><input id="sem-clinic" type="text" name="clinic" required></div>
+<div class="f"><label for="sem-tel">携帯電話<span class="req">必須</span></label><input id="sem-tel" type="tel" name="tel" required autocomplete="tel"></div>
+<div class="f"><label for="sem-email">メールアドレス<span class="req">必須</span></label><input id="sem-email" type="email" name="email" required autocomplete="email"></div>
+<div class="f"><label for="sem-date">希望日時（候補を3つほど）</label><input id="sem-date" type="text" name="dates" placeholder="11/20 20時、11/22 21時、11/25 20時"></div>
+<div class="f"><label for="sem-msg">相談したい内容</label><textarea id="sem-msg" name="message"></textarea></div>
 <div class="hp"><label>会社URL<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
-<button class="btn btn-yellow btn-lg" type="submit">セミナーに応募する</button>
+<button class="btn btn-dark" type="submit">セミナーに申し込む ${ARROW}</button>
 <div class="msg" role="status" aria-live="polite"></div>
-</form>
-</div></section>
-
-<div class="yband" id="document-form">資料の無料請求はコチラから</div>
-<section class="formsec" style="padding-top:36px"><div class="wrap">
-<form class="form" data-api data-type="document" novalidate style="margin-top:0">
-<div class="f"><label>ご希望の資料をご選択ください<span class="req">*</span></label><div class="chk">${s.documents.map((d) => `<label><input type="checkbox" name="items" value="${esc(d.title)}"> ${esc(d.title)}</label>`).join('')}</div></div>
-<div class="f"><label for="doc-name">お名前<span class="req">*</span></label><input id="doc-name" type="text" name="name" required autocomplete="name"></div>
-<div class="f"><label for="doc-clinic">整骨院名<span class="req">*</span></label><input id="doc-clinic" type="text" name="clinic" required></div>
-<div class="f"><label for="doc-email">メールアドレス<span class="req">*</span></label><input id="doc-email" type="email" name="email" required autocomplete="email"></div>
-<div class="f"><label for="doc-tel">電話番号<span class="req">*</span></label><input id="doc-tel" type="tel" name="tel" required autocomplete="tel"></div>
-<div class="f"><label for="doc-addr">整骨院住所<span class="req">*</span></label><input id="doc-addr" type="text" name="address" placeholder="例）福岡県大野城市○○1-2-3"></div>
-<div class="f"><label for="doc-msg">その他伝えたい内容がございましたらご記入ください</label><textarea id="doc-msg" name="message"></textarea></div>
+</form></div>
+<div id="document-form"><div class="sec-h"><h2>資料請求</h2><p>地域分析をご希望の方は、院の住所もご記入ください。</p></div>
+<form class="form" data-api data-type="document" novalidate>
+<div class="f"><label>ご希望の資料<span class="req">必須</span></label><div class="chk">${s.documents.map((d) => `<label><input type="checkbox" name="items" value="${esc(d.title)}"> ${esc(d.title)}</label>`).join('')}</div></div>
+<div class="f"><label for="doc-name">お名前<span class="req">必須</span></label><input id="doc-name" type="text" name="name" required autocomplete="name"></div>
+<div class="f"><label for="doc-clinic">整骨院名<span class="req">必須</span></label><input id="doc-clinic" type="text" name="clinic" required></div>
+<div class="f"><label for="doc-email">メールアドレス<span class="req">必須</span></label><input id="doc-email" type="email" name="email" required autocomplete="email"></div>
+<div class="f"><label for="doc-tel">電話番号<span class="req">必須</span></label><input id="doc-tel" type="tel" name="tel" required autocomplete="tel"></div>
+<div class="f"><label for="doc-addr">整骨院住所</label><input id="doc-addr" type="text" name="address" placeholder="福岡県大野城市○○1-2-3"></div>
+<div class="f"><label for="doc-msg">その他</label><textarea id="doc-msg" name="message"></textarea></div>
 <div class="hp"><label>会社URL<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
-<button class="btn btn-red btn-lg" type="submit">資料を請求する　▶</button>
+<button class="btn btn-dark" type="submit">資料を請求する ${ARROW}</button>
 <div class="msg" role="status" aria-live="polite"></div>
-</form>
-</div></section>`;
+</form></div>
+</div></div></section>`;
 
   const jsonld = [
     { '@context': 'https://schema.org', '@type': 'Organization', name: s.company, alternateName: s.siteName, url: s.siteUrl, logo: s.siteUrl + '/assets/img/emblem.webp', telephone: s.telRaw, address: { '@type': 'PostalAddress', postalCode: s.addressParts.postal, addressRegion: s.addressParts.region, addressLocality: s.addressParts.locality, streetAddress: s.addressParts.street, addressCountry: 'JP' }, sameAs: [s.instagram].filter(Boolean), description: s.description },
@@ -224,8 +215,8 @@ ${contactForm(site)}
 export function shindanPage(site) {
   const sh = site.shindan;
   const body = `
-<div class="pagehead"><div class="wrap"><h1>${esc(sh.title)}（無料・1分）</h1><p>${esc(sh.lead)}</p></div></div>
-<section class="soft" style="padding-top:36px"><div class="wrap">
+<div class="pagehead"><div class="wrap"><h1>${esc(sh.title)}</h1><p>${esc(sh.lead)}</p></div></div>
+<section style="padding-top:0;background:var(--bg-2)"><div class="wrap">
 <div class="quiz" id="quiz">
 <div class="prog"><i id="prog"></i></div>
 <div class="qn" id="qn"></div><div class="qt" id="qt"></div>
@@ -240,13 +231,13 @@ export function shindanPage(site) {
 <div class="advice"><h3>今すぐできる3つのアクション</h3><ul id="advice"></ul><p style="margin-top:.8em;font-size:.9rem;font-weight:700" id="issue-note"></p></div>
 <div class="lock" id="lock">詳細レポート（PDF相当の解説＋業界平均との比較＋優先順位つきの改善策）をメールでお送りします。下記にご入力ください。</div>
 <p style="font-size:.9rem;color:#444;margin:.6em 0 1em" id="lv-cta"></p>
-<form class="form" id="shindan-form" data-api data-type="shindan" novalidate style="margin-top:0;box-shadow:none;border:0;padding:0">
+<form class="form" id="shindan-form" data-api data-type="shindan" novalidate>
 <div class="f"><label for="sh-name">お名前<span class="req">必須</span></label><input id="sh-name" type="text" name="name" required autocomplete="name"></div>
 <div class="f"><label for="sh-clinic">整骨院名<span class="req">必須</span></label><input id="sh-clinic" type="text" name="clinic" required placeholder="開業予定の場合は「未定」"></div>
 <div class="f"><label for="sh-email">メールアドレス<span class="req">必須</span></label><input id="sh-email" type="email" name="email" required autocomplete="email"></div>
 <div class="f"><label for="sh-tel">電話番号</label><input id="sh-tel" type="tel" name="tel" autocomplete="tel"></div>
 <div class="hp"><label>会社URL<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
-<button class="btn btn-red btn-lg" type="submit">診断レポートを受け取る（無料）▶</button>
+<button class="btn btn-red btn-lg" type="submit">診断レポートを受け取る（無料）</button>
 <p class="priv">レポート送付とご相談対応のためにのみ使用します。営業電話はいたしません。</p>
 <div class="msg" role="status" aria-live="polite"></div>
 </form>
@@ -264,11 +255,11 @@ export function blogIndexPage(site, posts, { tag } = {}) {
   const tags = [...new Set(posts.flatMap((p) => p.tags))];
   const body = `
 <div class="pagehead"><div class="wrap"><h1>${esc(tag ? `「${tag}」の記事` : site.blogName)}</h1><p>直営130院の現場から、明日使える整骨院経営のノウハウをお届けします。</p></div></div>
-<section><div class="wrap">
-<div class="tags-list" style="justify-content:center"><a href="/blog/">すべて</a>${tags.map((t) => `<a href="/blog/tag/${encodeURIComponent(t)}/">${esc(t)}</a>`).join('')}</div>
+<section style="padding-top:32px"><div class="wrap">
+<div class="tags-list"><a href="/blog/">すべて</a>${tags.map((t) => `<a href="/blog/tag/${encodeURIComponent(t)}/">${esc(t)}</a>`).join('')}</div>
 <div class="posts">${posts.map(postCard).join('')}</div>
 </div></section>
-<section class="band"><div class="wrap"><h2>あなたの院は今<em>どのレベル</em>？</h2><p>8つの質問で、次にやるべき一手がわかります。</p><p style="margin-top:1.4em"><a class="btn btn-yellow btn-lg" href="/shindan/" data-cta="blogindex_shindan">1分で無料診断 ▶</a></p></div></section>`;
+<section class="band"><div class="wrap"><h2>あなたの院は今どのレベル？</h2><p>8つの質問で、次にやるべき一手がわかります。</p><p style="margin-top:1.4em"><a class="btn btn-red btn-lg" href="/shindan/" data-cta="blogindex_shindan">1分で無料診断</a></p></div></section>`;
   const jsonld = [{ '@context': 'https://schema.org', '@type': 'CollectionPage', name: title, url: site.siteUrl + path, isPartOf: { '@type': 'WebSite', url: site.siteUrl } }];
   return layout(site, { title, description: `${site.blogName}の記事一覧。整骨院の集客・リピート率向上・スタッフ教育・開業の実践ノウハウを、直営130院を運営する${site.company}が発信。`, path, body, jsonld });
 }
@@ -281,11 +272,11 @@ export function postPage(site, p, related) {
 <div class="meta"><time datetime="${p.date}">${p.dateJa}</time>${p.updated && p.updated !== p.date ? `<time datetime="${p.updated}">更新 ${p.updatedJa}</time>` : ''}${p.tags.map((t) => `<span>${esc(t)}</span>`).join('')}<span style="background:none;color:var(--mute);padding:0">執筆：${esc(site.author.name)}</span></div>
 <img class="cover" src="${p.ogImage}" alt="" width="1200" height="630">
 <div class="prose">${p.html}</div>
-<div class="cta-box"><b>あなたの院は今<em>どのレベル</em>？</b><p>8つの質問に答えるだけ。新規・リピート・口コミ・自費率・体制・数字管理を点数化して「次にやるべき一手」をお伝えします。</p><a class="btn btn-yellow btn-lg" href="/shindan/" data-cta="post_shindan">1分で無料「経営力診断」▶</a></div>
+<div class="cta-box"><b>あなたの院は今どのレベル？</b><p>8つの質問に答えるだけ。新規・リピート・口コミ・自費率・体制・数字管理を点数化して「次にやるべき一手」をお伝えします。</p><a class="btn btn-red btn-lg" href="/shindan/" data-cta="post_shindan">1分で無料「経営力診断」</a></div>
 <div class="author"><div class="av"></div><div><b>${esc(site.author.name)}（${esc(site.author.org)}）</b>${esc(site.author.bio)}</div></div>
 <div class="tags-list">${p.tags.map((t) => `<a href="/blog/tag/${encodeURIComponent(t)}/">#${esc(t)}</a>`).join('')}</div>
 ${related.length ? `<div class="related"><h2>関連記事</h2><div class="posts">${related.map(postCard).join('')}</div></div>` : ''}
-<p style="margin-top:2em;text-align:center"><a class="btn btn-white" href="/blog/">記事一覧へ戻る</a></p>
+<p style="margin-top:2em"><a class="link" href="/blog/">記事一覧へ戻る</a></p>
 </article>`;
   const jsonld = [
     { '@context': 'https://schema.org', '@type': 'BlogPosting', headline: p.title, description: p.description, image: p.ogImageAbs, datePublished: p.date, dateModified: p.updated || p.date, author: { '@type': 'Organization', name: site.author.org, url: site.siteUrl }, publisher: { '@type': 'Organization', name: site.company, logo: { '@type': 'ImageObject', url: site.siteUrl + '/assets/img/emblem.webp' } }, mainEntityOfPage: site.siteUrl + p.url, keywords: p.tags.join(','), inLanguage: 'ja' },
@@ -308,6 +299,6 @@ export function privacyPage(site) {
 }
 
 export function notFoundPage(site) {
-  const body = `<div class="pagehead"><div class="wrap"><h1>ページが見つかりません</h1><p>URLが変更されたか、削除された可能性があります。</p></div></div><section style="text-align:center"><a class="btn btn-red" href="/">トップへ戻る</a> <a class="btn btn-white" href="/blog/">ブログ一覧</a></section>`;
+  const body = `<div class="pagehead"><div class="wrap"><h1>ページが見つかりません</h1><p>URLが変更されたか、削除された可能性があります。</p></div></div><section><div class="wrap"><a class="btn btn-red" href="/">トップへ戻る</a> <a class="btn btn-white" href="/blog/">ブログ一覧</a></div></section>`;
   return layout(site, { title: `404｜${site.siteName}`, description: 'ページが見つかりません', path: '/404.html', body, extraHead: '<meta name="robots" content="noindex">' });
 }
