@@ -98,9 +98,8 @@ export function lpPage(site, posts) {
     <img class="brand" src="/assets/img/hero-brand.webp" alt="整骨院の開業なら むさし鍼灸整骨院グループ！" width="1200" height="324">
     <div class="ctas"><a class="btn btn-yellow" href="/shindan/" data-cta="hero_shindan">1分で無料「経営力診断」</a><a class="btn btn-red" href="#form" data-cta="hero_contact">無料相談はこちら</a></div>
   </div>
+  <div class="bar"><div class="in"><p>まずは1分。あなたの院の経営力を診断します<b>開業前の方も、赤字で悩む院長も、無料で相談できます</b></p><div class="acts"><a class="btn btn-yellow" href="/shindan/" data-cta="hero_shindan_pc">1分で無料「経営力診断」</a><a class="btn btn-red" href="#form" data-cta="hero_contact_pc">無料相談はこちら</a><a class="tel" href="${telHref(s.tel)}" data-cta="hero_tel">お電話でのご相談<b>${esc(s.tel)}</b></a></div></div></div>
 </div>
-
-<div class="stats"><div class="grid">${s.stats.map((x) => `<div><b data-count="${esc(x.num)}">${esc(x.num)}<span>${esc(x.unit)}</span></b><small>${esc(x.label)}</small></div>`).join('')}</div></div>
 
 <div class="yband" id="seminar">売上爆増!?整骨院向けセミナー</div>
 <div class="semsec"><div class="wrap">
