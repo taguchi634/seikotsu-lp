@@ -57,14 +57,12 @@
   // スクロールで表示 + 数字カウントアップ
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   if ('IntersectionObserver' in window && !reduce) {
-    const io = new IntersectionObserver((es) => es.forEach((en, i) => { if (en.isIntersecting) { en.target.style.transitionDelay = (Math.min(i, 5) * 70) + 'ms'; en.target.classList.add('in'); io.unobserve(en.target); } }), { threshold: .12, rootMargin: '0px 0px -5% 0px' });
-    document.querySelectorAll('.rv,.post').forEach((el) => io.observe(el));
-    const nums = new IntersectionObserver((es) => es.forEach((en) => {
+        const nums = new IntersectionObserver((es) => es.forEach((en) => {
       if (!en.isIntersecting) return; nums.unobserve(en.target);
       const el = en.target, target = parseFloat(el.dataset.count), unit = el.querySelector('span'); const t0 = performance.now(), dur = 1200;
       const step = (t) => { const p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 3); el.firstChild.textContent = String(Math.round(target * e)); if (p < 1) requestAnimationFrame(step); else el.firstChild.textContent = String(target); };
       el.firstChild.textContent = '0'; requestAnimationFrame(step); void unit;
     }), { threshold: .5 });
     document.querySelectorAll('[data-count]').forEach((el) => nums.observe(el));
-  } else document.querySelectorAll('.rv').forEach((el) => el.classList.add('in'));
+  }
 })();
