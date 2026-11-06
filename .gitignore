@@ -5,3 +5,4 @@ node_modules/
 content/data/gsc-latest.json
 content/data/report-*.json
 *.log
+preview/

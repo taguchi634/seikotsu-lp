@@ -10,15 +10,15 @@ const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&l
 
 function cardHtml({ title, tag, isDefault }) {
   return `<!DOCTYPE html><html lang="ja"><head><meta charset="utf-8"><style>
-  body{margin:0;width:1200px;height:630px;font-family:"Noto Sans CJK JP","Noto Sans JP","Hiragino Sans","Yu Gothic",sans-serif;background:linear-gradient(135deg,#2a1010 0%,#3b1b1b 55%,#5a2323 100%);color:#fff;position:relative;overflow:hidden}
-  .glow1{position:absolute;right:-200px;top:-260px;width:700px;height:700px;border-radius:50%;background:rgba(245,180,0,.22)}
-  .glow2{position:absolute;left:-220px;bottom:-320px;width:640px;height:640px;border-radius:50%;background:rgba(227,0,27,.4)}
+  body{margin:0;width:1200px;height:630px;font-family:"Noto Sans CJK JP","Noto Sans JP","Hiragino Sans","Yu Gothic",sans-serif;background:linear-gradient(135deg,#b80016 0%,#e3001b 60%,#ff5a2e 100%);color:#fff;position:relative;overflow:hidden}
+  .glow1{position:absolute;right:-200px;top:-260px;width:700px;height:700px;border-radius:50%;background:rgba(245,180,0,.28)}
+  .glow2{position:absolute;left:-220px;bottom:-320px;width:640px;height:640px;border-radius:50%;background:rgba(59,26,26,.35)}
   .box{position:absolute;inset:48px;border:3px solid rgba(255,255,255,.18);border-radius:28px}
   .tag{position:absolute;left:96px;top:92px;background:#f5b400;color:#3b1b1b;font-weight:900;font-size:28px;padding:8px 28px;border-radius:999px}
   .title{position:absolute;left:96px;right:96px;top:170px;font-size:${isDefault ? 64 : 56}px;font-weight:900;line-height:1.4;letter-spacing:.02em;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
   .brand{position:absolute;left:96px;bottom:84px;font-size:30px;font-weight:800;opacity:.95}
   .brand small{display:block;font-size:22px;color:#f5b400;font-weight:800;letter-spacing:.06em}
-  .logo{position:absolute;right:96px;bottom:84px;width:88px;height:88px;border-radius:22px;background:#e3001b;display:flex;align-items:center;justify-content:center;font-size:52px;font-weight:900}
+  .logo{position:absolute;right:96px;bottom:84px;width:88px;height:88px;border-radius:22px;background:#3b1a1a;display:flex;align-items:center;justify-content:center;font-size:52px;font-weight:900}
   </style></head><body><div class="glow1"></div><div class="glow2"></div><div class="box"></div>
   <div class="tag">${esc(tag)}</div><div class="title">${esc(title)}</div>
   <div class="brand">${esc(site.siteName)}<small>${esc(site.company)}｜直営130院の経営ノウハウ</small></div><div class="logo">M</div></body></html>`;
