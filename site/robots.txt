@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://musashi-seikotsuinsupport.com/sitemap.xml

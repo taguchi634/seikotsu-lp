@@ -1,0 +1,13 @@
+# push/PR時: ビルドが通るか・安全ゲートが全記事で通るかを確認
+name: build-check
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - run: node scripts/build.mjs
+      - run: node scripts/lint-posts.mjs

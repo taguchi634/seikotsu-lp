@@ -1,0 +1,47 @@
+# 毎晩: Search Console取得 → AI執筆 → 安全ゲート → サムネ生成 → ビルド → コミット → 検索通知 → Slackレポート
+name: nightly-blog
+on:
+  schedule:
+    - cron: '0 18 * * *'   # 毎日 03:00 JST
+  workflow_dispatch:
+    inputs:
+      count:
+        description: '生成する記事数'
+        default: '1'
+permissions:
+  contents: write
+concurrency: nightly-blog
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - name: Chromium + 日本語フォント（サムネ生成用）
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq fonts-noto-cjk >/dev/null
+          npx playwright install --with-deps chromium
+      - name: Search Console 取得（任意）
+        env: { GSC_SERVICE_ACCOUNT_JSON: "${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}" }
+        run: node scripts/gsc-report.mjs || echo "gsc skipped/failed"
+      - name: AI執筆 + 安全ゲート
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          POSTS_PER_RUN: ${{ github.event.inputs.count || '1' }}
+        run: node scripts/generate-post.mjs
+      - name: サムネ生成 + ビルド
+        run: node scripts/og-image.mjs && node scripts/build.mjs
+      - name: コミット
+        run: |
+          git config user.name "blog-bot"; git config user.email "blog-bot@users.noreply.github.com"
+          git add content/posts content/drafts content/topics.json content/data/indexnow-key.txt content/data/rewrite-queue.json src/assets/og src/assets/og-default.png site
+          git diff --cached --quiet || git commit -m "blog: 自動生成 $(TZ=Asia/Tokyo date +%F)"
+          git push
+      - name: 検索エンジン通知（IndexNow）
+        run: node scripts/notify-search.mjs || true
+      - name: Slackレポート
+        env: { SLACK_WEBHOOK_URL: "${{ secrets.SLACK_WEBHOOK_URL }}" }
+        run: node scripts/nightly-report.mjs
