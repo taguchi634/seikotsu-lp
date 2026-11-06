@@ -21,12 +21,14 @@ export function layout(site, { title, description, path, body, jsonld = [], ogIm
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="alternate" type="application/rss+xml" title="${esc(site.blogName)}" href="${site.siteUrl}/feed.xml">
 ${gsc}
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500;700;900&family=Zen+Kaku+Gothic+New:wght@700;900&family=Oswald:wght@600;700&display=swap">
 <link rel="stylesheet" href="/assets/style.css">
 ${jsonld.map((j) => `<script type="application/ld+json">${json(j)}</script>`).join('\n')}
 ${ga}
 ${extraHead}
 </head>
-<body class="${bodyClass}">
+<body class="${bodyClass}"><script>document.documentElement.classList.add('js')</script>
 <script>window.__SITE__=${json({ apiEndpoint: site.apiEndpoint, bookingUrl: site.bookingUrl, googleForm: site.googleForm, tel: site.tel })}</script>
 ${header(site)}
 ${body}
@@ -98,17 +100,19 @@ export function lpPage(site, posts) {
   </div>
 </div>
 
+<div class="stats"><div class="grid">${s.stats.map((x) => `<div class="rv"><b data-count="${esc(x.num)}">${esc(x.num)}<span>${esc(x.unit)}</span></b><small>${esc(x.label)}</small></div>`).join('')}</div></div>
+
 <div class="yband" id="seminar">売上爆増!?整骨院向けセミナー</div>
 <div class="semsec"><div class="wrap">
-  <div class="feat"><img src="/assets/img/${semImg[0]}.webp" alt="${esc(feat.title)}" width="800" height="1000" loading="lazy"><div class="t"><b>${esc(feat.sub)}</b><i>${esc(feat.when)}</i><p>${esc(feat.body)}</p></div></div>
-  <div class="two">${others.map((m, i) => `<div class="card2"><img src="/assets/img/${semImg[i + 1]}.webp" alt="${esc(m.title)}" width="900" height="656" loading="lazy"><div class="t"><b>${esc(m.title)}</b><i>${esc(m.when)}‼</i><p>${esc(m.body)}</p></div></div>`).join('')}</div>
+  <div class="feat card-hover rv"><img src="/assets/img/${semImg[0]}.webp" alt="${esc(feat.title)}" width="800" height="1000" loading="lazy"><div class="t"><span class="chip">参加費無料</span><span class="chip">ZOOM</span><b>${esc(feat.sub)}</b><i>${esc(feat.when)}</i><p>${esc(feat.body)}</p></div></div>
+  <div class="two">${others.map((m, i) => `<div class="card2 card-hover rv"><img src="/assets/img/${semImg[i + 1]}.webp" alt="${esc(m.title)}" width="900" height="656" loading="lazy"><div class="t"><b>${esc(m.title)}</b><i>${esc(m.when)}‼</i><p>${esc(m.body)}</p></div></div>`).join('')}</div>
   <a class="imgbtn" href="#seminar-form" data-cta="seminar_imgbtn"><img src="/assets/img/btn-seminar.webp" alt="セミナーで集客・求人・経営に関する悩みを無料相談！" width="1200" height="300" loading="lazy"></a>
 </div></div>
 
 <div class="point"><img class="woman" src="/assets/img/pointing-woman.webp" alt="" width="900" height="601" loading="lazy"><div class="box">ここがポイント‼</div><p>全国130院の直営運営で培った「成功の型」を完全再現！</p></div>
 
 <section class="nayami2" id="success"><div class="wrap">
-  <h2 class="ttl">整骨院経営をやっていて<br><em>こんなお悩みありませんか？</em></h2>
+  <span class="eyebrow">Trouble</span><h2 class="ttl">整骨院経営をやっていて<br><em>こんなお悩みありませんか？</em></h2>
   <img class="bubbles" src="/assets/img/worries-bubbles.webp" alt="昔に比べて新規数が減りカルテ枚数が減少している／自費メニューを作ったけどなかなか上手く提案できない／スタッフ教育が苦手でどうしていいかわからない" width="1600" height="310" loading="lazy">
   <ul>${s.problems.map((p) => `<li>${esc(p)}</li>`).join('')}</ul>
 </div></section>
@@ -118,9 +122,9 @@ export function lpPage(site, posts) {
   <img class="circles" src="/assets/img/merit-circles.webp" alt="マーケティングチームが集客を徹底的にサポート！新規増加率100%／担当サポーターが勉強会を開催！平均月1回／実店舗で成果を出している運営方法をご提案 42店舗以上" width="1400" height="1049" loading="lazy">
   <p class="h2">むさしで開業する<em style="color:var(--yellow);font-style:normal">メリット</em></p>
   <div class="merits">
-    <div class="merit"><img src="/assets/img/store-queue.webp" alt="" width="600" height="450" loading="lazy"><b>${esc(s.reasons[0].title)}</b><p>${esc(s.reasons[0].body)}</p></div>
-    <div class="merit"><img src="/assets/img/svc-operation.webp" alt="" width="600" height="399" loading="lazy"><b>${esc(s.reasons[1].title)}</b><p>${esc(s.reasons[1].body)}</p></div>
-    <div class="merit"><img src="/assets/img/svc-zaimu.webp" alt="" width="600" height="405" loading="lazy"><b>${esc(s.reasons[2].title)}</b><p>${esc(s.reasons[2].body)}</p></div>
+    <div class="merit rv"><div class="im"><img src="/assets/img/store-queue.webp" alt="" width="600" height="450" loading="lazy"></div><b>${esc(s.reasons[0].title)}</b><p>${esc(s.reasons[0].body)}</p></div>
+    <div class="merit rv"><div class="im"><img src="/assets/img/svc-operation.webp" alt="" width="600" height="399" loading="lazy"></div><b>${esc(s.reasons[1].title)}</b><p>${esc(s.reasons[1].body)}</p></div>
+    <div class="merit rv"><div class="im"><img src="/assets/img/svc-zaimu.webp" alt="" width="600" height="405" loading="lazy"></div><b>${esc(s.reasons[2].title)}</b><p>${esc(s.reasons[2].body)}</p></div>
   </div>
   <p class="omakase">整骨院の開業は、整骨院を運営している<b>我々“<em>むさし</em>”におまかせください！</b></p>
   <div class="consult">
@@ -133,8 +137,8 @@ export function lpPage(site, posts) {
 
 <div class="yband" id="shindan">1分でわかる！整骨院 経営力診断</div>
 <section class="shindan-sec"><div class="wrap">
-  <h2 class="ttl">8つの質問に答えるだけ。<br>あなたの院の<em>「今のレベル」と「次の一手」</em>がわかります</h2>
-  <div class="steps"><div class="step"><span>1</span>質問に答える<small>新規・リピート・口コミ・自費率・体制・数字管理の8問。約1分</small></div><div class="step"><span>2</span>レベル判定<small>4段階で今の経営力を点数化。連絡先なしで結果まで見られます</small></div><div class="step"><span>3</span>次の一手がわかる<small>優先順位つきの改善策と、詳細レポートをメールでお届け</small></div></div>
+  <span class="eyebrow">Free Check</span><h2 class="ttl">8つの質問に答えるだけ。<br>あなたの院の<em>「今のレベル」と「次の一手」</em>がわかります</h2>
+  <div class="steps"><div class="step rv"><span>1</span>質問に答える<small>新規・リピート・口コミ・自費率・体制・数字管理の8問。約1分</small></div><div class="step rv"><span>2</span>レベル判定<small>4段階で今の経営力を点数化。連絡先なしで結果まで見られます</small></div><div class="step rv"><span>3</span>次の一手がわかる<small>優先順位つきの改善策と、詳細レポートをメールでお届け</small></div></div>
   <p style="margin-top:2em"><a class="btn btn-red btn-lg" href="/shindan/" data-cta="shindan_sec">無料で診断する ▶</a></p>
 </div></section>
 
@@ -146,8 +150,8 @@ export function lpPage(site, posts) {
 </div></section>
 
 <section class="svc" id="service"><div class="wrap">
-  <h2 class="ttl"><em>豊富なサービス体制</em>で<br>御社の課題を<em>根本</em>から解決します！</h2>
-  <div class="grid">${s.services.map((v) => `<div class="tile"><img src="/assets/img/${svcImg[v.slug] || 'svc-unei'}.webp" alt="" width="432" height="322" loading="lazy"><b>${esc(v.name).replace('・', '<br>')}</b></div>`).join('')}</div>
+  <span class="eyebrow">Service</span><h2 class="ttl"><em>豊富なサービス体制</em>で<br>御社の課題を<em>根本</em>から解決します！</h2>
+  <div class="grid">${s.services.map((v) => `<div class="tile rv"><img src="/assets/img/${svcImg[v.slug] || 'svc-unei'}.webp" alt="" width="432" height="322" loading="lazy"><b>${esc(v.name).replace('・', '<br>')}<small>${esc(v.desc)}</small></b></div>`).join('')}</div>
   <img class="compare" src="/assets/img/compare-table.webp" alt="むさし鍼灸整骨院サポート事業部とA社・WEB制作会社の比較：実店舗運営◎、技術◎、集客力◎、スタッフ育成◎、採用○、費用○" width="1200" height="790" loading="lazy">
 </div></section>
 
@@ -155,8 +159,8 @@ export function lpPage(site, posts) {
   <p class="lim">ここまで読んだ方限定！</p>
   <p class="lim2">お役立ち資料を無料でダウンロード</p>
   <div class="grid">
-    <div class="paper"><img src="/assets/img/doc-jakuten-cover.webp" alt="弱点分析シート" width="445" height="600" loading="lazy"><div><b>${esc(s.documents[0].title)}</b><p>${esc(s.documents[0].body)}</p><a class="btn btn-outline-y" href="#document-form" data-cta="doc_jakuten">資料請求する</a></div></div>
-    <div class="paper"><img src="/assets/img/doc-chiiki.webp" alt="地域分析無料診断" width="330" height="459" loading="lazy"><div><b>${esc(s.documents[1].title)}</b><p>${esc(s.documents[1].body)}</p><a class="btn btn-outline-y" href="#document-form" data-cta="doc_chiiki">資料請求する</a></div></div>
+    <div class="paper rv"><img src="/assets/img/doc-jakuten-cover.webp" alt="弱点分析シート" width="445" height="600" loading="lazy"><div><b>${esc(s.documents[0].title)}</b><p>${esc(s.documents[0].body)}</p><a class="btn btn-outline-y" href="#document-form" data-cta="doc_jakuten">資料請求する</a></div></div>
+    <div class="paper rv"><img src="/assets/img/doc-chiiki.webp" alt="地域分析無料診断" width="330" height="459" loading="lazy"><div><b>${esc(s.documents[1].title)}</b><p>${esc(s.documents[1].body)}</p><a class="btn btn-outline-y" href="#document-form" data-cta="doc_chiiki">資料請求する</a></div></div>
   </div>
 </div></section>
 
@@ -168,7 +172,7 @@ export function lpPage(site, posts) {
 </div></section>
 
 <section class="faq2" id="question"><div class="wrap">
-  <h2 class="ttl u">よくある質問</h2>
+  <span class="eyebrow">FAQ</span><h2 class="ttl u">よくある質問</h2>
   <div class="qa">${s.faq.map((f, i) => `<details${i === 0 ? ' open' : ''}><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join('')}</div>
 </div></section>
 
